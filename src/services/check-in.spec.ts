@@ -4,6 +4,8 @@ import { Prisma } from '@prisma/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { CheckInService } from './check-in.service'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
@@ -66,7 +68,7 @@ describe('Check Ins Service', () => {
         userLatitude: -22.3091596,
         userLongitude: -46.95137,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to a check in twice but in different days', async () => {
@@ -115,6 +117,6 @@ describe('Check Ins Service', () => {
         userLatitude: -22.3091596,
         userLongitude: -46.95137,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
