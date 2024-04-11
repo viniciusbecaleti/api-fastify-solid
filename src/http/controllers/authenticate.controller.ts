@@ -1,5 +1,5 @@
 import { InvalidCredentialsError } from '@/services/errors/invalid-credentials-error'
-import { MakeAuthenticateService } from '@/services/factories/make-authenticate-service'
+import { makeAuthenticateService } from '@/services/factories/make-authenticate-service'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -15,7 +15,7 @@ export async function authenticateController(
   const { email, password } = authenticateBodySchema.parse(request.body)
 
   try {
-    const authenticateService = MakeAuthenticateService()
+    const authenticateService = makeAuthenticateService()
 
     await authenticateService.execute({
       email,
